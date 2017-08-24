@@ -70,6 +70,18 @@ module Database
       @old_attributes = @attributes.dup
     end
 
+    def save
+      if new_record?
+        results = insert!
+      else
+        results = update!
+      end
+
+      # When we save, remove changes between new and old attributes
+      @old_attributes = @attributes.dup
+
+      results
+    end
 
     def raise_error_if_invalid_attribute!(attributes)
       # This guarantees that attributes is an array, so we can call both:
@@ -93,6 +105,7 @@ module Database
     end
 
     private
+
     def self.prepare_value(value)
       case value
       when Time, DateTime, Date
@@ -100,6 +113,36 @@ module Database
       else
         value
       end
+    end
+
+    def insert!
+      self[:created_at] = DateTime.now
+      self[:updated_at] = DateTime.now
+
+      fields = self.attributes.keys
+      values = self.attributes.values
+      marks  = Array.new(fields.length) { '?' }.join(',')
+
+      insert_sql = "INSERT INTO #{self.class.name.downcase + 's'} (#{fields.join(',')}) VALUES (#{marks})"
+
+      results = Database::Model.execute(insert_sql, *values)
+
+      # This fetches the new primary key and updates this instance
+      self[:id] = Database::Model.last_insert_row_id
+      results
+    end
+
+    def update!
+      self[:updated_at] = DateTime.now
+
+      fields = self.attributes.keys
+      values = self.attributes.values
+
+      update_clause = fields.map { |field| "#{field} = ?" }.join(',')
+      update_sql = "UPDATE #{self.class.name.downcase + 's'} SET #{update_clause} WHERE id = ?"
+
+      # We have to use the (potentially) old ID attributein case the user has re-set it.
+      Database::Model.execute(update_sql, *values, self.old_attributes[:id])
     end
   end
 end
