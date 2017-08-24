@@ -78,6 +78,11 @@ module Database
       self.where('id = ?', pk).first
     end
 
+    # We say a record is "new" if it doesn't have a defined primary key in its attributes
+    def new_record?
+      self[:id].nil?
+    end
+
     # e.g., Cohort.new(:id => 1, :name => 'Alpha', :created_at => '2012-12-01 05:54:30')
     # e.g., Student.new(:id => 1, :first_name => 'Steve', :last_name => 'Rogers', ...)
     def initialize(attributes = {})

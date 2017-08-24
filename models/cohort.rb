@@ -14,8 +14,4 @@ class Cohort < Database::Model
 
     students
   end
-
-  def new_record?
-    self[:id].nil?
-  end
 end

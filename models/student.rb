@@ -4,12 +4,6 @@ class Student < Database::Model
 
   attr_reader :attributes, :old_attributes
 
-  # We say a record is "new" if it doesn't have a defined primary key in its
-  # attributes
-  def new_record?
-    self[:id].nil?
-  end
-
   def cohort
     Cohort.where('id = ?', self[:cohort_id]).first
   end
