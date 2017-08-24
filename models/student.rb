@@ -33,13 +33,6 @@ class Student < Database::Model
     self[:id].nil?
   end
 
-  # e.g., student['first_name'] #=> 'Steve'
-  def [](attribute)
-    raise_error_if_invalid_attribute!(attribute)
-
-    @attributes[attribute]
-  end
-
   # e.g., student['first_name'] = 'Steve'
   def []=(attribute, value)
     raise_error_if_invalid_attribute!(attribute)

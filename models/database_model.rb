@@ -83,6 +83,13 @@ module Database
       results
     end
 
+    # e.g., student['first_name'] #=> 'Steve'
+    def [](attribute)
+      raise_error_if_invalid_attribute!(attribute)
+
+      @attributes[attribute]
+    end
+
     def raise_error_if_invalid_attribute!(attributes)
       # This guarantees that attributes is an array, so we can call both:
       #   raise_error_if_invalid_attribute!("id")
