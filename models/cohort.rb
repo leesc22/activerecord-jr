@@ -1,10 +1,4 @@
 class Cohort < Database::Model
-  def self.all
-    Database::Model.execute("SELECT * FROM cohorts").map do |row|
-      Cohort.new(row)
-    end
-  end
-
   def self.create(attributes)
     record = self.new(attributes)
     record.save
