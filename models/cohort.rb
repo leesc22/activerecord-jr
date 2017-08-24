@@ -26,12 +26,6 @@ class Cohort < Database::Model
 
   attr_reader :attributes, :old_attributes
 
-  def []=(attribute, value)
-    raise_error_if_invalid_attribute!(attribute)
-
-    @attributes[attribute] = value
-  end
-
   def students
     Student.where('cohort_id = ?', self[:id])
   end
