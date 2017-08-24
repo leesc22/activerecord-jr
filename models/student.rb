@@ -1,10 +1,4 @@
 class Student < Database::Model
-  def self.where(query, *args)
-    Database::Model.execute("SELECT * FROM students WHERE #{query}", *args).map do |row|
-      Student.new(row)
-    end
-  end
-
   def self.find(pk)
     self.where('id = ?', pk).first
   end

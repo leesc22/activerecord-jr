@@ -58,3 +58,6 @@ require 'byebug'
 # student2 = Student.create(cohort_id: 11, first_name: "Jane", last_name: "Doe", email: "jane@example.com", gender: "f", birthdate: "1980-08-08")
 # p Student.all.last[:email] == "jane@example.com"
 
+# #where
+# p cohort = Cohort.where('name = ?', 'Alpha').first[:id]
+# p student = Student.where('last_name = ?', 'Doe').first[:email]

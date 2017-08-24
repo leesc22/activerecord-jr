@@ -1,10 +1,4 @@
 class Cohort < Database::Model
-  def self.where(query, *args)
-    Database::Model.execute("SELECT * FROM cohorts WHERE #{query}", *args).map do |row|
-      Cohort.new(row)
-    end
-  end
-
   def self.find(pk)
     self.where('id = ?', pk).first
   end

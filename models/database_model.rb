@@ -68,6 +68,12 @@ module Database
       record
     end
 
+    def self.where(query, *args)
+      Database::Model.execute("SELECT * FROM #{self.name.downcase + 's'} WHERE #{query}", *args).map do |row|
+        self.new(row)
+      end
+    end
+
     # e.g., Cohort.new(:id => 1, :name => 'Alpha', :created_at => '2012-12-01 05:54:30')
     # e.g., Student.new(:id => 1, :first_name => 'Steve', :last_name => 'Rogers', ...)
     def initialize(attributes = {})
