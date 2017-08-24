@@ -49,7 +49,12 @@ require 'byebug'
 
 
 # #all
-p Student.all.count
-p Cohort.all.count
+# p Student.all.count
+# p Cohort.all.count
 
+# #create
+# cohort2 = Cohort.create(name: "BANG")
+# p Cohort.all.last[:name] == "BANG"
+# student2 = Student.create(cohort_id: 11, first_name: "Jane", last_name: "Doe", email: "jane@example.com", gender: "f", birthdate: "1980-08-08")
+# p Student.all.last[:email] == "jane@example.com"
 

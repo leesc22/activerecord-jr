@@ -1,11 +1,4 @@
 class Cohort < Database::Model
-  def self.create(attributes)
-    record = self.new(attributes)
-    record.save
-
-    record
-  end
-
   def self.where(query, *args)
     Database::Model.execute("SELECT * FROM cohorts WHERE #{query}", *args).map do |row|
       Cohort.new(row)

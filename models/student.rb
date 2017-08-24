@@ -1,11 +1,4 @@
 class Student < Database::Model
-  def self.create(attributes)
-    record = self.new(attributes)
-    record.save
-
-    record
-  end
-
   def self.where(query, *args)
     Database::Model.execute("SELECT * FROM students WHERE #{query}", *args).map do |row|
       Student.new(row)
