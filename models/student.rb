@@ -1,8 +1,4 @@
 class Student < Database::Model
-  def self.find(pk)
-    self.where('id = ?', pk).first
-  end
-
   self.attribute_names =  [:id, :cohort_id, :first_name, :last_name, :email,
                            :gender, :birthdate, :created_at, :updated_at] 
 

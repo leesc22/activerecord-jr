@@ -1,8 +1,4 @@
 class Cohort < Database::Model
-  def self.find(pk)
-    self.where('id = ?', pk).first
-  end
-
   self.attribute_names =  [:id, :name, :created_at, :updated_at]
 
   attr_reader :attributes, :old_attributes

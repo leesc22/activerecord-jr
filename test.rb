@@ -61,3 +61,8 @@ require 'byebug'
 # #where
 # p cohort = Cohort.where('name = ?', 'Alpha').first[:id]
 # p student = Student.where('last_name = ?', 'Doe').first[:email]
+
+# #find
+p cohort = Cohort.find(5)[:name]
+p student = Student.find(201)[:birthdate]
+
